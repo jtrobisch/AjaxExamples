@@ -2,23 +2,23 @@
 <html>
 <head>
 	<script>
-	function foundResults(str) {
-		if(str.length == 0) {
-			document.getElementById("result").innerHTML = "";
+	function foundResults(str) { 
+		if(str.length == 0) { //if str is not set then../
+			document.getElementById("result").innerHTML = ""; //resets the HTML object (id = result)
 			return;
 		} else {
-			var xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-				if(this.readyState == 4 && this.status == 200) {
-					var jsonObj = JSON.parse(this.responseText);
-					console.log(jsonObj);
+			var xmlhttp = new XMLHttpRequest(); //creates a new HTTP request object
+			xmlhttp.onreadystatechange = function() { //creates a listener for the statechange of the HTTP request object
+				if(this.readyState == 4 && this.status == 200) { //if the request was sucessful
+					var jsonObj = JSON.parse(this.responseText); //parse into JSON the resposne from the server
+					console.log(jsonObj); //prints the contents of jsonObj to console (for testing purposes)
 					document.getElementById("result").innerHTML = jsonObj[0].atomic_symbol + " - " 
                               + jsonObj[0].element_name + ":  < b > Uses: < /b>" 
-                              + jsonObj[0].uses + "  < b > Colour: < /b> " + jsonObj[0].colour;
+                              + jsonObj[0].uses + "  < b > Colour: < /b> " + jsonObj[0].colour; //sets the value of the HTML object (RESULT)
 				}
 			}
-			xmlhttp.open("GET", "http://localhost/api/v1/elements/" + str, true);
-			xmlhttp.send();
+			xmlhttp.open("GET", "http://localhost/api/v1/elements/" + str, true); //opens the request and contacts the web service
+			xmlhttp.send(); //send the request
 		}
 	}
 	</script>
